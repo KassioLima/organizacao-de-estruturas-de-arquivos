@@ -27,7 +27,7 @@ int seleciona()
     FILE *f = fopen("cep.dat","r");
     FILE *s = fopen("selecionados.dat", "w");
 
-    printf("\nDigite o numero de linhas que deseja selecionar - ");
+    printf("\nDigite o numero de linhas que deseja ordenar - ");
     scanf("%lu", &linhasSelecionadas);
     printf("\nSelecionando...\n");
     for(long x = 0; x < linhasSelecionadas; x++)
