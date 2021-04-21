@@ -1,0 +1,42 @@
+Todo o programa é baseado inicialmente no arquivo "bolsa.csv", que deve ser
+adicionado a este diretório.
+
+Todas as operações serão realizadas tendo como base este arquivo; caso
+deseje mudar de referência, use a função 7 e então as operações serão baseadas
+no arquivo informado.
+
+
+FUNÇÕES DO PROGRAMA
+
+
+FUNÇÃO 1
+Busca por X linhas do arquivo "nis.dat" na arvore "arvore.dat" e informa 
+quanto tempo levou para realizar todas as buscas.
+
+FUNÇÃO 2
+Busca por um determinado NIS no arquivo "bolsa.csv" usando a indexação 
+"arvore.dat".
+
+FUNÇÃO 3
+Feito para selecionar X linhas do arquivo bolsa.csv em modo sequencial ou 
+aleatório, gerando um arquivo "bolsa2.csv".
+A intenção é usar o "bolsa2.csv" para testes, já que deve se tratar de um 
+arquivo menor. Caso se queira utilizar este arquivo para testes, deve ser 
+utilizada a função 7. Após a execução, a função pedirá para que informe se 
+deseja mudar a referência para o novo arquivo gerado.
+
+FUNÇÃO 4
+Gera o arquivo "nis.dat" contendo X linhas do arquivo "bolsa.csv". O "nis.dat"
+contém apenas os NIS, separados por quebra de linha.
+
+FUNÇÃO 5
+Gera um arquivo "saida.txt" que apresenta a versão em texto do arquivo 
+"arvore.dat".
+
+FUNÇÃO 6
+Preenche o arquivo "arvore.dat" com todos os NIS e suas respectivas posições no
+arquivo "bolsa.csv".
+
+FUNÇÂO 7
+Muda a referência a um arquivo de bolsas, que por padrão é "bolsa.csv" para
+outro arquivo que deverá ser informado.
