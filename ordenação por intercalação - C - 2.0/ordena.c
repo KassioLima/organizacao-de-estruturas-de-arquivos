@@ -178,7 +178,7 @@ int ordena()
         {
             qtd = linhasPorArquivo;
         }
-        else
+        else // pega o tanto de linhas do arquivo "a mais"
         {
             qtd = 0;
             for(int x = 0; x < linhasPorArquivo; x++)
