@@ -36,16 +36,21 @@ int main(int argc, char**argv)
     ultimo = (posicao/sizeof(Endereco))-1; //penúltima linha
 
     int achou = 0, lidos = 0;
-    
+    char linha[2048];
     while(primeiro <= ultimo)
     {
     	lidos++;
     	meio = (primeiro+ultimo)/2;
-        fseek(f,meio*sizeof(Endereco),SEEK_SET); //move o cabeçote para a linha do meio
+        fseek(f,meio*sizeof(Endereco)-sizeof(Endereco),SEEK_SET); //move o cabeçote para a linha do meio
+        // -sizeof(Endereco) foi adicionado pois por algum motivo
+        // o cabeçote de leitura está parando no meio da linha, não no começo
+        // entao volta-se 300 bytes para ir para a linha anterior
+        //  e depois  faz-se comando abaixo para ir para o começo da linha do meio, de fato.
+        fgets(linha, 2048, f);
     	fread(&e,sizeof(Endereco),1,f);
         if(strncmp(argv[1],e.cep,8) == 0)
         {
-            printf("%.72s\n%.72s\n%.72s\n%.72s\n%.2s\n%.8s\n",e.logradouro,e.bairro,e.cidade,e.uf,e.sigla,e.cep);
+            printf("\n%.72s\n%.72s\n%.72s\n%.72s\n%.2s\n%.8s\n",e.logradouro,e.bairro,e.cidade,e.uf,e.sigla,e.cep);
             achou = 1;
             break;
         }
