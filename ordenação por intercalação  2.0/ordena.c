@@ -29,12 +29,12 @@ int seleciona()
 
     printf("\nDigite o numero de linhas que deseja selecionar - ");
     scanf("%lu", &linhasSelecionadas);
-    printf("\n\n");
+    printf("\nSelecionando...\n");
     for(long x = 0; x < linhasSelecionadas; x++)
     {
         fseek(f,(x*sizeof(Endereco)),SEEK_SET);
         fread(linha,sizeof(Endereco),1,f);
-        printf("%lu - Selecionado\n", (x+1));
+        //printf("%lu - Selecionado\n", (x+1));
         fprintf(s,"%.300s", linha);
     }
     printf("\nCompleto\n");
@@ -129,7 +129,7 @@ int separa()
                         fclose(saida);
                         resto--;
                     }
-                    printf("\n%d - %s\n", index, nome);
+                    printf("%s\n", nome);
                     arquivosAMais++;
                 }
                 printf("\nForam gerados %d arquivos\n", (gerados + arquivosAMais));
@@ -317,6 +317,31 @@ void copia(char n1[40], char n2[40])
     fclose(f2);
 }
 
+void limpaArquivos(int numero, int arquivos)
+{
+    char n1[40];
+    //apaga os arquivos de inter_blocos
+    for(int x = 1; x <= numero; x++)
+    {
+        sprintf(n1, "inter_blocos/intercalado%d.dat", x);
+        remove(n1);
+    }
+    //apaga os arquivos de ord_blocos
+    for(int x = 1; x <= arquivos; x++)
+    {
+        sprintf(n1, "ord_blocos/ord_bloco%d.dat", x);
+        remove(n1);
+    }
+    //apaga os arquivos de blocos
+    for(int x = 1; x <= arquivos; x++)
+    {
+        sprintf(n1, "blocos/bloco%d.dat", x);
+        remove(n1);
+    }
+
+    remove("selecionados.dat");
+}
+
 int organiza()
 {
     //printf("\nDigite o numero de blocos ordenados - ");
@@ -337,9 +362,9 @@ int organiza()
         //gera os arquivos da pasta inter_blocos
         for(int x = 0, y = 0; x < intercalar; x+=2)
         {
-            char n1[27];
-            char n2[27];
-            char n3[31];
+            char n1[40];
+            char n2[40];
+            char n3[40];
 
             sprintf(n1, "ord_blocos/ord_bloco%d.dat", x+1);
             sprintf(n2, "ord_blocos/ord_bloco%d.dat", x+2);
@@ -352,8 +377,8 @@ int organiza()
             {
                 if(intercalar != arquivos) //sobrou um arquivo
                 {
-                    char n1[27];
-                    char n2[31];
+                    char n1[40];
+                    char n2[40];
 
                     sprintf(n1, "ord_blocos/ord_bloco%d.dat", arquivos);
                     sprintf(n2, "inter_blocos/intercalado%d.dat", ++y);
@@ -397,9 +422,9 @@ int organiza()
 
             for(int x = (numero - aux), y = 0; y < intercalar; x+=2, y+=2)
             {
-                char n1[31];
-                char n2[31];
-                char n3[31];
+                char n1[40];
+                char n2[40];
+                char n3[40];
 
                 sprintf(n1, "inter_blocos/intercalado%d.dat", x+1);
                 sprintf(n2, "inter_blocos/intercalado%d.dat", x+2);
@@ -412,8 +437,8 @@ int organiza()
                 {
                     if(intercalar != aux) //sobrou um arquivo
                     {
-                        char n1[31];
-                        char n2[31];
+                        char n1[40];
+                        char n2[40];
 
                         sprintf(n1, "inter_blocos/intercalado%d.dat", ultimo);
                         sprintf(n2, "inter_blocos/intercalado%d.dat", ++numero);
@@ -424,7 +449,16 @@ int organiza()
                 }
             }
         }
-        printf("\nOs %d arquivos foram intercaladoos\n", arquivos);
+
+        char n1[40];
+        char n2[40];
+        sprintf(n1, "inter_blocos/intercalado%d.dat", numero);
+        sprintf(n2, "cep_ordenado.dat", "");
+        copia(n1, n2);
+
+        limpaArquivos(numero, arquivos);
+
+        printf("\nOs %d arquivos foram intercalados\n", arquivos);
     }
     return 0;
 }
